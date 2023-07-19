@@ -11,9 +11,8 @@ RuntimeReflectionPropertyHelper::~RuntimeReflectionPropertyHelper()
 {
 }
 
-void RuntimeReflectionPropertyHelper::InitializeBaseVariablesFromUnrealProperty(URuntimeReflectionProperty* pRuntimeProperty, FProperty* pUnrealProperty, UObject* pOwner)
+void RuntimeReflectionPropertyHelper::InitializeBasePropertyVariables(URuntimeReflectionProperty* pRuntimeProperty, FProperty* pUnrealProperty)
 {
-	pRuntimeProperty->Container = pOwner;
 	pRuntimeProperty->Property = pUnrealProperty;
 	pRuntimeProperty->PropertyFlags = pUnrealProperty->GetPropertyFlags();
 	pRuntimeProperty->Name = pUnrealProperty->GetName();

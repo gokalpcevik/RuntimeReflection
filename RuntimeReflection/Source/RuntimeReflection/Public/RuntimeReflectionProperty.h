@@ -19,7 +19,8 @@ enum class ERuntimeReflectionPropertyType : uint8
 	Text,
 	Name,
 	Object,
-	ScriptStruct
+	ScriptStruct,
+	Other
 };
 
 UCLASS(BlueprintType)
@@ -33,8 +34,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool HasMetadata(FName const& Key);
 
-	UPROPERTY(BlueprintReadOnly)
-	UObject* Container;
 	// Property Name
 	UPROPERTY(BlueprintReadOnly)
 	FString Name;
@@ -88,10 +87,10 @@ public:
 	bool GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValue();
+	bool GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(bool Value);
+	void SetValue(UObject* Container, bool Value);
 
 	FBoolProperty* BoolProperty;
 };
@@ -106,10 +105,10 @@ public:
 	uint8 GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	uint8 GetValue();
+	uint8 GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(uint8 Value);
+	void SetValue(UObject* Container, uint8 Value);
 
 	FByteProperty* ByteProperty;
 };
@@ -124,10 +123,10 @@ public:
 	int32 GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	int32 GetValue();
+	int32 GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(int32 Value);
+	void SetValue(UObject* Container, int32 Value);
 
 	UFUNCTION(BlueprintCallable)
 	int32 GetIntMetaData(FName const& Key);
@@ -145,10 +144,10 @@ public:
 	int64 GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	int64 GetValue();
+	int64 GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(int64 Value);
+	void SetValue(UObject* Container, int64 Value);
 
 	UFUNCTION(BlueprintCallable)
 	int64 GetIntMetaData(FName const& Key);
@@ -166,10 +165,10 @@ public:
 	float GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	float GetValue();
+	float GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(float Value);
+	void SetValue(UObject* Container, float Value);
 
 	UFUNCTION(BlueprintCallable)
 	float GetFloatMetadata(FName const& Key);
@@ -187,10 +186,10 @@ public:
 	FString GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	FString GetValue();
+	FString GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(FString const& Value);
+	void SetValue(UObject* Container, FString const& Value);
 
 	FStrProperty* StringProperty;
 };
@@ -205,10 +204,10 @@ public:
 	FText GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	FText GetValue();
+	FText GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(FText const& Value);
+	void SetValue(UObject* Container, FText const& Value);
 
 	FTextProperty* TextProperty;
 };
@@ -223,10 +222,10 @@ public:
 	FName GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	FName GetValue();
+	FName GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(FName Value);
+	void SetValue(UObject* Container, FName Value);
 
 	FNameProperty* NameProperty;
 };
@@ -241,10 +240,10 @@ public:
 	UObject* GetDefaultValue();
 
 	UFUNCTION(BlueprintCallable)
-	UObject* GetValue();
+	UObject* GetValue(UObject* Container);
 
 	UFUNCTION(BlueprintCallable)
-	void SetValue(UObject* Value);
+	void SetValue(UObject* Container, UObject* Value);
 
 	FObjectProperty* ObjectProperty;
 };
@@ -255,9 +254,6 @@ class RUNTIMEREFLECTION_API URuntimeReflectionStructProperty : public URuntimeRe
 public:
 	GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
-	TArray<URuntimeReflectionProperty*> Properties;
-
-	UScriptStruct* ScriptStruct;
-	FStructProperty* StructProperty;
+	UScriptStruct* ScriptStruct     = nullptr;
+	FStructProperty* StructProperty = nullptr;
 };

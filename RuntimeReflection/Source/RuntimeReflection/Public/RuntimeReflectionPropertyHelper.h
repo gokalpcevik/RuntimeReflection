@@ -14,5 +14,5 @@ public:
 	RuntimeReflectionPropertyHelper();
 	~RuntimeReflectionPropertyHelper();
 
-	static void InitializeBaseVariablesFromUnrealProperty(URuntimeReflectionProperty* pRuntimeProperty, FProperty* pUnrealProperty, UObject* pOwner);
+	static void InitializeBasePropertyVariables(URuntimeReflectionProperty* pRuntimeProperty, FProperty* pUnrealProperty);
 };

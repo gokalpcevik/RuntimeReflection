@@ -29,5 +29,7 @@ class URuntimeReflectionBPLibrary : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable)
 	static URuntimeReflectionClass* CreateRuntimeReflectionClassFromObject(UObject* Container,ERuntimeReflectionFieldIterationFlags Flags);
 
-	
+	UFUNCTION(BlueprintCallable)
+	static URuntimeReflectionScriptStruct* CreateRuntimeReflectionScriptStructFromStructProperty(URuntimeReflectionStructProperty* Property, ERuntimeReflectionFieldIterationFlags Flags);
+
 };

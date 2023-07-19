@@ -20,7 +20,6 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	TArray<URuntimeReflectionProperty*> Properties;
 
-	UObject* Container = nullptr;
 };
 
 UENUM(Blueprintable)
@@ -41,9 +40,32 @@ class RUNTIMEREFLECTION_API URuntimeReflectionScriptStruct : public URuntimeRefl
 {
 public:
 	GENERATED_BODY()
-	
+
 	UPROPERTY(BlueprintReadOnly)
 	ERuntimeReflectionScriptStructType ScriptStructType = ERuntimeReflectionScriptStructType::None;
+
+	UPROPERTY(BlueprintReadOnly)
+	FString CPPName;
+
+	UPROPERTY(BlueprintReadOnly)
+	FString ScriptStructName;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool IsVector() const { return ScriptStructType == ERuntimeReflectionScriptStructType::Vector;  }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool IsVector2D() const { return ScriptStructType == ERuntimeReflectionScriptStructType::Vector2D; }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool IsRotator() const { return ScriptStructType == ERuntimeReflectionScriptStructType::Rotator; }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool IsTransform() const { return ScriptStructType == ERuntimeReflectionScriptStructType::Transform; }
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool IsQuat() const { return ScriptStructType == ERuntimeReflectionScriptStructType::Quaternion; }
+
+	UScriptStruct* ScriptStruct = nullptr;
 };
 
 UCLASS(BlueprintType)
@@ -53,7 +75,13 @@ public:
 	GENERATED_BODY()
 
 	UPROPERTY(BlueprintReadOnly)
-	int32 ParameterCount;
+	FString FunctionName;
+
+	UPROPERTY(BlueprintReadOnly)
+	URuntimeReflectionProperty* ReturnProperty;
+
+	FProperty* ReturnPropertyUE = nullptr;
+	UFunction* Function = nullptr;
 };
 
 UCLASS(BlueprintType)
@@ -62,4 +90,7 @@ class RUNTIMEREFLECTION_API URuntimeReflectionClass : public URuntimeReflectionS
 public:
 	GENERATED_BODY()
 
+	UPROPERTY(BlueprintReadOnly)
+	TArray<URuntimeReflectionFunction*> Functions;
+	
 };
